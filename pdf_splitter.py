@@ -1,25 +1,27 @@
 import os
 import xlsxwriter
 from PyPDF2 import PdfFileReader, PdfFileWriter
-from tkinter import *
+import tkinter as tk
 from tkinter.ttk import *
-from tkinter import simpledialog
+from tkinter import simpledialog, TOP, END
 import re
 
 # importing askopenfile function
 # from class filedialog
 from tkinter.filedialog import askopenfile
 
-root = Tk()
+
+root = tk.Tk()
 root.geometry('600x300')
 root.title('PDF Splitter')
 
-ordered_pairs = []
 
 
 def open_file():
+    ordered_pairs = []
+
     file = askopenfile(mode='r', filetypes=[
-                       ('PDF Files', '*.pdf')])
+        ('PDF Files', '*.pdf')])
 
     file_selected = file.name
     path = os.path.dirname(file.name)
@@ -58,10 +60,11 @@ def open_file():
         file.close()
 
 
-btn = Button(root, text='Open File', command=lambda: open_file())
+#btn = Button(root, text='Open File', command=lambda: open_file())
+btn = Button(root, text='Open File', command=open_file)
 btn.pack(side=TOP, pady=10)
-t = Text(root, height=15, width=500)
+t = tk.Text(root, height=15, width=500)
 t.pack()
 t.insert(END, 'Creating PDF Files\n')
 
-mainloop()
+root.mainloop()

@@ -1,4 +1,6 @@
 import os
+from PyPDF2 import PdfFileReader, PdfFileWriter
+import re
 
 
 class FileData():
@@ -27,3 +29,38 @@ class FileData():
                 status_string = ''.join(map(str, assembly.status))
                 persistance.write(
                     f'{assembly.number} ,{assembly.face_type} ,{assembly.l_end} ,{assembly.r_end} ,{status_string} \n')
+
+    def split_pdf(self):
+        ordered_pairs = []
+
+        # f = open(os.getcwd() + "/static/Build_Sheets/BS.pdf", "r")
+        # file_selected = f
+        pdf = PdfFileReader(os.getcwd() + "/static/Build_Sheets/BS.pdf")
+        if pdf is not None:
+
+            # os.makedirs(f'{path}/Build_Sheets')
+
+            for i in range(pdf.getNumPages()):
+                page = pdf.getPage(pageNumber=i)
+                text = page.extractText()
+                lines = text.splitlines()
+                number = 0
+                for line in lines:
+                    assembly = re.match(r'Assembly.#([0-9])+', line)
+                    if assembly != None:
+                        split = assembly.group(0).split('#')
+                        number = split[1]
+                        break
+
+                pdf_writer = PdfFileWriter()
+                pdf_writer.addPage(pdf.getPage(i))
+
+                output_filename = f'{os.getcwd()}/static/Build_Sheets/{number}.pdf'
+
+                # add number and link to list
+                ordered_pairs.append((number, f'{number}.pdf'))
+
+                with open(f'{output_filename}', 'wb') as out:
+                    pdf_writer.write(out)
+
+                print('Created: {}'.format(output_filename))

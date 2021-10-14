@@ -37,3 +37,14 @@
     font-size: large;
     font-weight: bold;
 }
+
+.form-check-input:disabled~.form-check-label {
+    color: #283138;
+}
+
+.form-check .form-check-input[type=checkbox] {
+    border-radius: .25em;
+    height: 30px;
+    width: 30px;
+    color: #283138;
+}
