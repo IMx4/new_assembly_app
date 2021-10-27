@@ -17,7 +17,6 @@ app = Flask(__name__)
 def index():
     name = load_data.get_job_name()
     cabs = load_data.get_assemblies_list()
-    print(len(cabs))
     return render_template('index.html', cabs=cabs, name=name)
 
 
@@ -28,14 +27,15 @@ def assembly(number):
     cabs = load_data.get_assemblies_dict()
     cab = cabs.get(number)
     status = cab.status
-    print(status)
+    # print(status)
     return render_template('cab_sheet.html', sheet='Build_Sheets/' + number + '.pdf', status=status, number=number, name=name)
 
 
-@app.route('/test/<string:value><string:num>', methods=['POST'])
-def test(value, num):
+@app.route('/test/<string:toggle>/<string:num>', methods=['POST'])
+def test(toggle, num):
 
-    load_data.change_state(num, int(value))
+    print(f' >>>>>>>>>>> {num}')
+    load_data.change_state(num, int(toggle))
 
     return redirect('/unit/' + num)
 

@@ -8,7 +8,7 @@ class Data():
 
         self.current_assembly = 0
         self.file_data = fd.FileData()
-        self.file_data.split_pdf()
+        #self.file_data.split_pdf()
         # read file and compose Assemblies
         self.file_data.read_file()
         self.job_name = self.file_data.job_name

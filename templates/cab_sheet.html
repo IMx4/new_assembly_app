@@ -9,14 +9,15 @@
 
 <body>
   
-  <div style="text-align: center;"><h1>{{name}}</h1></div>
+  <div style="text-align: center;"><h1>{{name}}   #{{number}}</h1></div>
 
  <div class="container fill">
+   
    <div class="row">
      <div class="col-4" style="background-color: #404245;">
       {% if status[0] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='0', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='0', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Case
@@ -34,7 +35,7 @@
 
       {% if status[1] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='1', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='1', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Frame
@@ -52,7 +53,7 @@
 
       {% if status[2] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='2', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='2', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Left Panel
@@ -70,7 +71,7 @@
 
       {% if status[3] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='3', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='3', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Right Panel
@@ -88,7 +89,7 @@
 
       {% if status[4] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='4', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='4', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Hardware
@@ -106,7 +107,7 @@
 
       {% if status[5] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='5', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='5', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Doors
@@ -124,7 +125,7 @@
 
       {% if status[6] == 0 %}
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('test', value='6', num=number)}}">
+        <form method="POST" action="{{ url_for ('test', toggle='6', num=number)}}">
           <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
           <label class="form-check-label" for="flexCheckDefault" >
           Light Panel
