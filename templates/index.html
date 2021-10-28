@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>shop_builder_assembly</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}"> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+</head>
+
+<body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" style="justify-content: center; text-align: center;">{{name}}</h1>
+    </div>
+  </div>
+  <div class="w-75 p-3 mx-auto">
+    <table class="table"> 
+      <thead class="thead-light">
+        <th class="text-center" scope="col">number</th>
+        <th class="text-center" scope="col">Progress</th>
+        <th class="text-center" scop="col">Select</th>
+      </tr>
+      {% for cab in cabs%}
+      <tr>
+        <td class="text-center" id="number">{{cab.number}}</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{cab.percent_complete()}}%;" aria-valuenow={{cab.percent_complete()}} aria-valuemin="0" aria-valuemax="100">{{cab.percent_complete()}}%</div>
+          </div>
+        </td>
+        <td class="text-center">
+          <form method="POST" action="{{ url_for ('assembly', number=cab.number)}}">
+            <input type="submit" value="Select" class="btn btn-secondary">
+        </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table> 
+  </div>
+</body>
+</html>

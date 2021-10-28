@@ -1,0 +1,50 @@
+.form-check {
+    display: flex;
+    align-items: center;
+    padding-left: 30%;
+    padding-top: 15%;
+}
+
+.form-check label {
+    margin-left: 25px;
+    font-size: 25px;
+    font-weight: 500;
+    color: aliceblue;
+}
+
+.form-check .form-check-input[type=checkbox] {
+    border-radius: .25em;
+    height: 30px;
+    width: 30px;
+}
+
+
+.fill {
+
+    padding-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#index-button {
+
+    margin-left: 25px;
+
+}
+
+#number {
+
+    font-size: large;
+    font-weight: bold;
+}
+
+.form-check-input:disabled~.form-check-label {
+    color: #283138;
+}
+
+.form-check .form-check-input[type=checkbox] {
+    border-radius: .25em;
+    height: 30px;
+    width: 30px;
+    color: #283138;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html><head><meta name="GCD" content="YTk3ODQ3ZWZhN2I4NzZmMzBkNTEwYjJl74b18ae0edb5749985cdb7595e81a4cf"/>
+  <meta charset="utf-8">
+  <title>shop_builder_assembly</title>
+  <meta name="generator" content="Google Web Designer 14.0.0.0820">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}"> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}"> 
+</head>
+
+<body>
+  
+  <div style="text-align: center;"><h1>{{name}}   #{{number}}</h1></div>
+
+ <div class="container fill">
+   
+   <div class="row">
+     <div class="col-4" style="background-color: #404245;">
+      {% if status[0] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='0', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Case
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Case
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[1] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='1', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Frame
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Frame
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[2] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='2', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Left Panel
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Left Panel
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[3] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='3', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Right Panel
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Right Panel
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[4] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='4', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Hardware
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Hardware
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[5] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='5', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Doors
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Doors
+        </label>
+      </div>
+      {%endif%}
+
+      {% if status[6] == 0 %}
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('test', toggle='6', num=number)}}">
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
+          <label class="form-check-label" for="flexCheckDefault" >
+          Light Panel
+          </label>
+      </form>
+      </div>
+      {% else %}
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+        Light Panel
+        </label>
+      </div>
+      {%endif%}
+
+      <div class="form-check">
+        <form method="POST" action="{{ url_for ('index')}}">
+          <input type="submit" value="Index" class="btn btn-primary" id="index-button">
+        </form>
+      </div>
+
+      </div>
+      
+      <div class="col-8">
+        <embed src="{{url_for('static',filename=sheet)}}" type="application/pdf" width="1200" height="900">
+      </div>
+    </div>
+</div>
+<!--class="gwd-img-1xyy" id="pdf_image"-->
+
+
+
+</body></html>
