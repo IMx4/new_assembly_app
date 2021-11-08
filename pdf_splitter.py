@@ -1,5 +1,4 @@
 import os
-import xlsxwriter
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import tkinter as tk
 from tkinter.ttk import *
@@ -14,7 +13,6 @@ from tkinter.filedialog import askopenfile
 root = tk.Tk()
 root.geometry('600x300')
 root.title('PDF Splitter')
-
 
 
 def open_file():
