@@ -4,12 +4,13 @@ import math
 
 class Assembly():
 
-    def __init__(self, number, face_type, l_end, r_end, string_status):
+    def __init__(self, number, face_type, l_end, r_end, light, string_status="0000000"):
 
         self.number = number
         self.face_type = face_type
         self.l_end = l_end
         self.r_end = r_end
+        self.light_pan = light
         self.status = [int(x) for x in string_status.strip(' \n')]
         self.task_count = len(self.status)
 

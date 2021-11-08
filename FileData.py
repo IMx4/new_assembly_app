@@ -1,6 +1,7 @@
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import re
+from . import assembly
 
 
 class FileData():
@@ -8,6 +9,7 @@ class FileData():
     def __init__(self):
         self.job_name = ''
         self.lines = {}
+        self.assemblies = []
 
     def read_file(self):
         # open persistance file and check status
@@ -30,6 +32,10 @@ class FileData():
                 persistance.write(
                     f'{assembly.number} ,{assembly.face_type} ,{assembly.l_end} ,{assembly.r_end} ,{status_string} \n')
 
+    def create_assembly(self, num, euro, left, right, light):
+
+        self.assemblies.append(assembly(num, euro, left, right, light))
+
     def split_pdf(self):
 
         ordered_pairs = []
@@ -42,10 +48,14 @@ class FileData():
                 text = page.extractText()
                 lines = text.splitlines()
 
-                # 
+                # params for assembly
                 number = 0
+                euro = 0
+                left_end = False
+                right_end = False
+                light_panel = False
 
-                # extract data from PDF
+                # extract data from PDF for assembly params
                 for line in lines:
 
                     # assmebly number
@@ -53,21 +63,34 @@ class FileData():
                     if assembly != None:
                         split = assembly.group(0).split('#')
                         number = split[1]
-                    
+
+                    # euro
+                    euro_type = re.match(r'LEND=([a-zA-Z])+', line)
+                    if euro_type != None:
+                        euro = assembly.group(0).split('=')
+
                     # left end type
                     lend = re.match(r'LEND=([a-zA-Z])+', line)
                     if lend != None:
                         split = assembly.group(0).split('=')
-                        number = split[1]
+                        if split != "Unfinished":
+                            left_end = True
+
+                    # right end type
+                    rend = re.match(r'REND=([a-zA-Z])+', line)
+                    if rend != None:
+                        split = assembly.group(0).split('=')
+                        if split != "Unfinished":
+                            right_end = True
 
                 pdf_writer = PdfFileWriter()
                 pdf_writer.addPage(pdf.getPage(i))
-
                 output_filename = f'{os.getcwd()}/static/Build_Sheets/{number}.pdf'
 
                 # add number and link to list
                 ordered_pairs.append((number, f'{number}.pdf'))
 
+                # write PDF page file
                 with open(f'{output_filename}', 'wb') as out:
                     pdf_writer.write(out)
 
