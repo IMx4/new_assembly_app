@@ -36,62 +36,72 @@ class FileData():
 
         self.assemblies.append(assembly(num, euro, left, right, light))
 
-    def split_pdf(self):
+    # def split_pdf(self):
 
-        ordered_pairs = []
+    #     ordered_pairs = []
 
-        pdf = PdfFileReader(os.getcwd() + "/static/Build_Sheets/BS.pdf")
-        if pdf is not None:
+    #     pdf = PdfFileReader(os.getcwd() + "/static/Build_Sheets/BS.pdf")
+    #     if pdf is not None:
 
-            for i in range(pdf.getNumPages()):
-                page = pdf.getPage(pageNumber=i)
-                text = page.extractText()
-                lines = text.splitlines()
+    #         for i in range(pdf.getNumPages()):
+    #             page = pdf.getPage(pageNumber=i)
+    #             text = page.extractText()
+    #             lines = text.splitlines()
 
-                # params for assembly
-                number = 0
-                euro = 0
-                left_end = False
-                right_end = False
-                light_panel = False
+    #             # params for assembly
+    #             number = 0
+    #             euro = 0
+    #             left_end = False
+    #             right_end = False
+    #             light_panel = False
 
-                # extract data from PDF for assembly params
-                for line in lines:
+    #             # extract data from PDF for assembly params
+    #             for line in lines:
 
-                    # assmebly number
-                    assembly = re.match(r'Assembly.#([0-9])+', line)
-                    if assembly != None:
-                        split = assembly.group(0).split('#')
-                        number = split[1]
+    #                 # assmebly number
+    #                 assembly = re.match(r'Assembly.#([0-9])+', line)
+    #                 if assembly != None:
+    #                     split = assembly.group(0).split('#')
+    #                     number = split[1]
 
-                    # euro
-                    euro_type = re.match(r'LEND=([a-zA-Z])+', line)
-                    if euro_type != None:
-                        euro = assembly.group(0).split('=')
+    #                 # euro
+    #                 euro_type = re.match(r'LEND=([a-zA-Z])+', line)
+    #                 if euro_type != None:
+    #                     euro = euro_type.group(0).split('=')
 
-                    # left end type
-                    lend = re.match(r'LEND=([a-zA-Z])+', line)
-                    if lend != None:
-                        split = assembly.group(0).split('=')
-                        if split != "Unfinished":
-                            left_end = True
+    #                 # left end type
+    #                 lend = re.match(r'LEND=([a-zA-Z])+', line)
+    #                 if lend != None:
+    #                     split = lend.group(0).split('=')
+    #                     if split != "Unfinished":
+    #                         left_end = True
 
-                    # right end type
-                    rend = re.match(r'REND=([a-zA-Z])+', line)
-                    if rend != None:
-                        split = assembly.group(0).split('=')
-                        if split != "Unfinished":
-                            right_end = True
+    #                 # right end type
+    #                 rend = re.match(r'REND=([a-zA-Z])+', line)
+    #                 if rend != None:
+    #                     split = rend.group(0).split('=')
+    #                     if split != "Unfinished":
+    #                         right_end = True
 
-                pdf_writer = PdfFileWriter()
-                pdf_writer.addPage(pdf.getPage(i))
-                output_filename = f'{os.getcwd()}/static/Build_Sheets/{number}.pdf'
+    #                 # light panel
+    #                 light = re.match(r'LIGHTRAIL=([a-zA-Z0-9])+', line)
+    #                 if light != None:
+    #                     split = light.group(0).split('=')
+    #                     if split == "1":
+    #                         light_panel = True
 
-                # add number and link to list
-                ordered_pairs.append((number, f'{number}.pdf'))
+    #                 self.create_assembly(
+    #                     number, euro, left_end, right_end, light_panel)
 
-                # write PDF page file
-                with open(f'{output_filename}', 'wb') as out:
-                    pdf_writer.write(out)
+    #             pdf_writer = PdfFileWriter()
+    #             pdf_writer.addPage(pdf.getPage(i))
+    #             output_filename = f'{os.getcwd()}/static/Build_Sheets/{number}.pdf'
 
-                print('Created: {}'.format(output_filename))
+    #             # add number and link to list
+    #             ordered_pairs.append((number, f'{number}.pdf'))
+
+    #             # write PDF page file
+    #             with open(f'{output_filename}', 'wb') as out:
+    #                 pdf_writer.write(out)
+
+    #             print('Created: {}'.format(output_filename))

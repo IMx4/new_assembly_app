@@ -1,23 +1,43 @@
-import os
-import math
-
 
 class Assembly():
 
-    def __init__(self, number, face_type, l_end, r_end, light, string_status="0000000"):
+    def __init__(self, number, face_type, l_end, r_end, light):
 
         self.number = number
-        self.face_type = face_type
-        self.l_end = l_end
-        self.r_end = r_end
-        self.light_pan = light
-        self.status = [int(x) for x in string_status.strip(' \n')]
-        self.task_count = len(self.status)
+        self.case = {"case": True, "complete": 0}
+        self.face_type = {"face": face_type, "complete": 0}
+        self.l_end = {"lend": l_end, "complete": 0}
+        self.r_end = {"rend": r_end, "complete": 0}
+        self.hardware = {"hardware": True, "complete": 0}
+        self.doors = {"doors": True, "complete": 0}
+        self.light_pan = {"light": light, "complete": 0}
 
-    def change_state(self, index):
+    def calc_percent_complete(self):
 
-        if self.status[index] == 0:
-            self.status[index] = 1
+        total_steps = 3
+        if self.face_type["face"]:
+            total_steps += 1
+        if self.l_end["lend"]:
+            total_steps += 1
+        if self.r_end["rend"]:
+            total_steps + 1
+        if self.light_pan["light"]:
+            total_steps += 1
 
-    def percent_complete(self):
-        return math.ceil((sum(self.status) / self.task_count)*100)
+        completed_steps = 0
+        if self.case["complete"]:
+            completed_steps += 1
+        if self.face_type["face"] & self.face_type["complete"]:
+            completed_steps += 1
+        if self.l_end["lend"] & self.l_end["complete"]:
+            completed_steps += 1
+        if self.r_end["rend"] & self.r_end["complete"]:
+            completed_steps += 1
+        if self.hardware["complete"]:
+            completed_steps += 1
+        if self.doors["complete"]:
+            completed_steps += 1
+        if self.light_pan["light"] & self.light_pan["complete"]:
+            completed_steps += 1
+
+        return (completed_steps/total_steps)*100

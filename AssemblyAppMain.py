@@ -1,6 +1,7 @@
 # Flask app to display pdf assembly sheets
 from flask import Flask, render_template, redirect
 import Data_Store as ds
+import PDF_Reader as reader
 import os
 
 app = Flask(__name__)
@@ -15,16 +16,16 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    name = load_data.get_job_name()
-    cabs = load_data.get_assemblies_list()
+    name = data.get_job_name()
+    cabs = data.get_assemblies_list()
     return render_template('index.html', cabs=cabs, name=name)
 
 
 @app.route('/unit/<string:number>', methods=['POST', 'GET'])
 def assembly(number):
 
-    name = load_data.get_job_name()
-    cabs = load_data.get_assemblies_dict()
+    name = data.get_job_name()
+    cabs = data.get_assemblies_dict()
     cab = cabs.get(number)
     status = cab.status
     # print(status)
@@ -35,12 +36,13 @@ def assembly(number):
 def test(toggle, num):
 
     print(f' >>>>>>>>>>> {num}')
-    load_data.change_state(num, int(toggle))
+    data.change_state(num, int(toggle))
 
     return redirect('/unit/' + num)
 
 
 if __name__ == '__main__':
 
-    load_data = ds.Data()
+    data = ds.Data()
+    read_pdf = reader.pdf_reader(data)
     app.run("localhost", 5000, debug=True)
