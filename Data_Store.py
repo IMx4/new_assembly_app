@@ -1,11 +1,39 @@
-#import FileData as fd
-import assembly as assembly
+from FileData import FileData
+from assembly import Assembly
+import os
 
 
 class Data():
 
-    def __init__(self):
-        self.assemblies = []
+    def get_jobs(self):
+
+        path = f'{os.getcwd()}/static/Build_Sheets/'
+        files = [f for f in os.listdir(path)]
+        return files
+
+    def load_job(self, job):
+
+        assemblies = {}
+        fd = FileData()
+        job_data = fd.read_file(job)
+
+        for num, status in job_data.items():
+            assembly = Assembly(
+                job, num,
+                int(status[0]),
+                int(status[1]),
+                int(status[2]),
+                int(status[3]),
+                int(status[4]),
+                int(status[5]),
+                int(status[6]),
+                int(status[7]),
+                int(status[8]))
+            assemblies[num] = assembly
+        return assemblies
+
+    # def __init__(self, assemblies_list):
+    #     self.assemblies = assemblies_list
 
     #     self.current_assembly = 0
     #     self.file_data = fd.FileData()

@@ -1,2 +1,3 @@
-
-                with open(f'{output_filename}', 'wb') as out:
+ PyPDF2 import PdfFileReader, PdfFileWriter
+# import re
+# from 

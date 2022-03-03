@@ -16,14 +16,20 @@
   <div class="w-75 p-3 mx-auto">
     <table class="table"> 
       <thead class="thead-light">
-        <th class="text-center" scope="col">Job</th>
+        <th class="text-center" scope="col">number</th>
+        <th class="text-center" scope="col">Progress</th>
         <th class="text-center" scop="col">Select</th>
       </tr>
-      {% for job in jobs%}
+      {% for cab in cabs%}
       <tr>
-        <td class="text-center" id="number">{{job}}</td>
+        <td class="text-center" id="number">{{cab._number}}</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{cab.calc_percent_complete()}}%;" aria-valuenow={{cab.calc_percent_complete()}} aria-valuemin="0" aria-valuemax="100">{{cab.calc_percent_complete()}}%</div>
+          </div>
+        </td>
         <td class="text-center">
-          <form method="POST" action="{{ url_for ('job', name=job)}}">
+          <form method="POST" action="{{ url_for ('assembly', number=cab._number, name=cab._job_name)}}">
             <input type="submit" value="Select" class="btn btn-secondary">
         </form>
         </td>

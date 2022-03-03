@@ -1,7 +1,7 @@
 import os
-from PyPDF2 import PdfFileReader, PdfFileWriter
-import re
-from . import assembly
+# from PyPDF2 import PdfFileReader, PdfFileWriter
+# import re
+# from . import assembly
 
 
 class FileData():
@@ -11,30 +11,31 @@ class FileData():
         self.lines = {}
         self.assemblies = []
 
-    def read_file(self):
+    def read_file(self, job):
         # open persistance file and check status
         # file_path = os.path.dirname +
-        with open(os.getcwd() + '/static/Build_Sheets/export.txt', 'r+', encoding='utf-16') as persistance:
+        with open(os.getcwd() + f'/static/Build_Sheets/{job}/{job}-status.txt', 'r+', encoding='utf-8') as persistance:
 
             self.job_name = persistance.readline().strip()
             for line in persistance:
-                split = line.rstrip().split(' ,')
+                split = line.rstrip().split(',')
                 self.lines[split[0]] = split[1:]
+            return self.lines
 
     def file_lines(self):
         return self.lines
 
-    def write_file(self, assemblies):
-        with open(os.getcwd() + '/static/Build_Sheets/export.txt', 'w', encoding='utf-16') as persistance:
-            persistance.write(self.job_name + '\n')
-            for assembly in assemblies:
-                status_string = ''.join(map(str, assembly.status))
-                persistance.write(
-                    f'{assembly.number} ,{assembly.face_type} ,{assembly.l_end} ,{assembly.r_end} ,{status_string} \n')
+    # def write_file(self, assemblies):
+    #     with open(os.getcwd() + '/static/Build_Sheets/export.txt', 'w', encoding='utf-16') as persistance:
+    #         persistance.write(self.job_name + '\n')
+    #         for assembly in assemblies:
+    #             status_string = ''.join(map(str, assembly.status))
+    #             persistance.write(
+    #                 f'{assembly.number} ,{assembly.face_type} ,{assembly.l_end} ,{assembly.r_end} ,{status_string} \n')
 
-    def create_assembly(self, num, euro, left, right, light):
+    # def create_assembly(self, num, euro, left, right, light):
 
-        self.assemblies.append(assembly(num, euro, left, right, light))
+    #     self.assemblies.append(assembly(num, euro, left, right, light))
 
     # def split_pdf(self):
 
@@ -105,3 +106,10 @@ class FileData():
     #                 pdf_writer.write(out)
 
     #             print('Created: {}'.format(output_filename))
+
+
+# fd = FileData()
+# fd.read_file('NEAMONITIS')
+# lines = fd.file_lines()
+# for k, v in lines.items():
+#     print(k, v)
