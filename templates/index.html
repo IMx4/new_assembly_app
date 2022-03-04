@@ -8,12 +8,17 @@
 </head>
 
 <body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('load')}}">Load File</a>
+    </li>
+  </ul>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" style="justify-content: center; text-align: center;">{{name}}</h1>
+      <h1 class="display-4" style="justify-content: center; text-align: center;">Assembly Sheets</h1>
     </div>
   </div>
-  <div class="w-75 p-3 mx-auto">
+  <div class="w-50 p-3 mx-auto">
     <table class="table"> 
       <thead class="thead-light">
         <th class="text-center" scope="col">Job</th>

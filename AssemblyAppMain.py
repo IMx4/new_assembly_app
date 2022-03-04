@@ -1,5 +1,5 @@
 # Flask app to display pdf assembly sheets
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, url_for
 import Data_Store as ds
 import PDF_Reader as reader
 import os
@@ -11,43 +11,55 @@ app = Flask(__name__)
 # app.run(debug=True)
 #app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+data = ds.Data()
+assemblies_dict = {}
+
 
 ### Routes ###
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    data = ds.Data()
+
     jobs = data.get_jobs()
+    global assemblies_dict
+    assemblies_dict = {}
     return render_template('index.html', jobs=jobs)
 
 
-@app.route('/<string:name>', methods=['GET', 'POST'])
+@app.route('/jobs/<string:name>', methods=['GET', 'POST'])
 def job(name):
-
-    data = ds.Data()
-    assemblies_dict = data.load_job(name)
+    global assemblies_dict
+    if len(assemblies_dict) == 0:
+        assemblies_dict = data.load_job(name)
     assemblies = [v for v in assemblies_dict.values()]
     return render_template('job.html', cabs=assemblies, name=name)
 
 
-@app.route('/unit/<string:name>/<string:number>', methods=['POST', 'GET'])
+@app.route('/unit/<string:name>/<string:number>', methods=['GET', 'POST'])
 def assembly(name, number):
-    data = ds.Data()
-
-    assemblies = data.load_job(name)
-    status = assemblies[number].get_assembly_status()
-    return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/' + number + '.pdf', status=status, number=number, name=name)
+    global assemblies_dict
+    status = assemblies_dict[number].get_assembly_status()
+    return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/{number}.pdf', status=status, number=number, name=name)
 
 
-@app.route('/test/<string:toggle>/<string:num>', methods=['POST'])
-def test(toggle, num):
-    data = ds.Data()
-    print(f' >>>>>>>>>>> {num}')
-    data.change_state(num, int(toggle))
+@app.route('/cab/<string:toggle>/<string:num>/<string:name>', methods=['POST'])
+def cab(toggle, num, name):
 
-    return redirect('/unit/' + num)
+    global assemblies_dict
+    cabinet = assemblies_dict.get(num)
+    cabinet.set_complete(toggle)
+    print(f'Toggle: {toggle} - Number: {num}')
+    data.write_status(assemblies_dict, name)
+
+    return redirect(f'/unit/{name}/{num}')
+
+
+@app.route('/load', methods=['GET'])
+def load():
+    read_pdf = reader.pdf_reader()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
-    read_pdf = reader.pdf_reader()
-    app.run("localhost", 5000, debug=True)
+
+    app.run("10.0.0.12", 5000, debug=True)

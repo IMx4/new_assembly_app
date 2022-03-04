@@ -49,7 +49,9 @@ class pdf_reader():
 
                 # params for assembly
                 number = 0
-                euro = False
+                case = 0
+                hardware = -1
+                euro = -1
                 left_end = -1
                 right_end = -1
                 light_panel = -1
@@ -75,11 +77,11 @@ class pdf_reader():
                         number = split[1]
 
                     # euro
-                    euro_type = re.match(r'EURO=([a-zA-Z])+', line)
+                    euro_type = re.match(r'EURO=([0-9])+', line)
                     if euro_type != None:
                         split = euro_type.group(0).split('=')[1]
-                        if split == '1':
-                            euro = True
+                        if split == '0':                          
+                            euro = 0
 
                     # left end type
                     lend = re.match(r'LEND=([a-zA-Z])+', line)
@@ -96,7 +98,7 @@ class pdf_reader():
                             right_end = 0
 
                     # light panel
-                    light = re.match(r'LIGHTRAIL=([a-zA-Z0-9])+', line)
+                    light = re.match(r'LIGHTRAIL=([0-9])+', line)
                     if light != None:
                         split = light.group(0).split('=')[1]
                         if split == "1":
@@ -108,6 +110,7 @@ class pdf_reader():
                         split = s_door.group(0).split('=')[1]
                         if split != "0":
                             single_door = 0
+                            hardware = 0
 
                     # pair door
                     p_door = re.match(r'PAIR_DOOR=([a-zA-Z0-9])+', line)
@@ -115,6 +118,7 @@ class pdf_reader():
                         split = p_door.group(0).split('=')[1]
                         if split != "0":
                             pair_door = 0
+                            hardware = 0
 
                      # false front
                     f_front = re.match(r'FALSE_FRONT=([a-zA-Z0-9])+', line)
@@ -129,6 +133,7 @@ class pdf_reader():
                         split = d_front.group(0).split('=')[1]
                         if split != "0":
                             drw_front = 0
+                            hardware = 0
 
                     # garbage
                     g_front = re.match(r'GARBAGE_FRONT=([a-zA-Z0-9])+', line)
@@ -136,9 +141,10 @@ class pdf_reader():
                         split = g_front.group(0).split('=')[1]
                         if split != "0":
                             garbage = 0
+                            hardware = 0
 
                 assembly = Assembly(
-                    name, number, euro, left_end, right_end, light_panel, pair_door, single_door, drw_front, false_front, garbage)
+                    name, number, case, hardware, euro, left_end, right_end, light_panel, pair_door, single_door, drw_front, false_front, garbage)
 
                 self.assemblies.append(assembly)
 
