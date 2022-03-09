@@ -23,10 +23,16 @@
       <thead class="thead-light">
         <th class="text-center" scope="col">Job</th>
         <th class="text-center" scop="col">Select</th>
+        <th class="text-center" scop="col">Select</th>
       </tr>
-      {% for job in jobs%}
+      {% for job, percent in jobs.items()%}
       <tr>
         <td class="text-center" id="number">{{job}}</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{percent}}%;" aria-valuenow={{percent}} aria-valuemin="0" aria-valuemax="100">{{percent}}%</div>
+          </div>
+        </td>
         <td class="text-center">
           <form method="POST" action="{{ url_for ('job', name=job)}}">
             <input type="submit" value="Select" class="btn btn-secondary">

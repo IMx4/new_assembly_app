@@ -7,9 +7,23 @@ class Data():
 
     def get_jobs(self):
 
+        jobs = {}
         path = f'{os.getcwd()}/static/Build_Sheets/'
         files = [f for f in os.listdir(path)]
-        return files
+        for job in files:
+            percent = self.get_job_percent(job)
+            jobs[job] = percent
+        return jobs
+
+    def get_job_percent(self, job):
+        total_complete = 0
+        assemblies = self.load_job(job)
+        for num, assembly in assemblies.items():
+            status = assembly.calc_percent_complete()
+            if status == 100:
+                total_complete += 1
+
+        return total_complete / len(assemblies)
 
     def load_job(self, job):
 
