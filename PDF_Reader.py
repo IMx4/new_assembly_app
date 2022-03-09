@@ -163,7 +163,6 @@ class pdf_reader():
                 with open(f'{output_filename}', 'wb') as out:
                     pdf_writer.write(out)
                     
-
                 print('Created: {}'.format(output_filename))
                 self.write_status()
             file.close()

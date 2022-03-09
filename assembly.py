@@ -6,7 +6,7 @@ class Assembly():
 
         self._job_name = job_name
         self._number = number
-        self._case = {"case": case, "complete": 0}
+        self._case = {"case": case, "complete": case}
         self._face_type = {"face": face_type, "complete": face_type}
         self._l_end = {"lend": l_end, "complete": l_end}
         self._r_end = {"rend": r_end, "complete": r_end}
@@ -58,6 +58,4 @@ class Assembly():
 
         for d in self.data:
             status.append(d.get('complete'))
-
-        # print(f'{self._number},{self._l_end},{status}')
         return status

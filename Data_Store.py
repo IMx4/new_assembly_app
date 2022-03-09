@@ -23,7 +23,7 @@ class Data():
             if status == 100:
                 total_complete += 1
 
-        return total_complete / len(assemblies)
+        return (total_complete / len(assemblies)) * 100
 
     def load_job(self, job):
 
