@@ -12,17 +12,17 @@ class pdf_reader():
 
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry('600x300')
+        self.root.geometry('800x300')
         self.root.title('PDF Splitter')
         self.assemblies = []
         self.job_name = ''
         btn = Button(self.root, text='Load New File', command=self.open_file)
         btn.pack(side=TOP, pady=10)
-        btn2 = Button(self.root, text='Skip', command=self.close_window)
+        btn2 = Button(self.root, text='Close', command=self.close_window)
         btn2.pack(side=TOP, pady=10)
-        t = tk.Text(self.root, height=15, width=500)
-        t.pack()
-        t.insert(END, 'Creating PDF Files\n')
+        self.t = tk.Text(self.root, height=15, width=500)
+        self.t.pack()
+        self.t.insert(END, 'Creating PDF Files\n')
 
         self.root.mainloop()
 
@@ -33,6 +33,7 @@ class pdf_reader():
             ('PDF Files', '*.pdf')])
 
         file_selected = file.name
+        
         path = os.path.dirname(file.name)
 
         if file is not None:
@@ -80,7 +81,7 @@ class pdf_reader():
                     euro_type = re.match(r'EURO=([0-9])+', line)
                     if euro_type != None:
                         split = euro_type.group(0).split('=')[1]
-                        if split == '0':                          
+                        if split == '0':
                             euro = 0
 
                     # left end type
@@ -162,9 +163,11 @@ class pdf_reader():
                 # write PDF page file
                 with open(f'{output_filename}', 'wb') as out:
                     pdf_writer.write(out)
-                    
+
                 print('Created: {}'.format(output_filename))
+                self.t.insert(END, 'Created: {}\n'.format(output_filename))
                 self.write_status()
+            self.t.insert(END, "<<<< Complete >>>>\n")
             file.close()
 
     def write_status(self):
