@@ -2,14 +2,9 @@
 from flask import Flask, render_template, redirect, url_for
 import Data_Store as ds
 import PDF_Reader as reader
-import os
+
 
 app = Flask(__name__)
-
-
-# -- debug flask configurations --
-# app.run(debug=True)
-#app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 data = ds.Data()
 assemblies_dict = {}
