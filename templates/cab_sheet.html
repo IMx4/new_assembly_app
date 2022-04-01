@@ -19,7 +19,7 @@
       {% if status[0] >= 0 %}
         {% if status[0] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='case', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='case', num=number, name=name, user=user, part='Case')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Case
@@ -39,7 +39,7 @@
       {% if status[2] >= 0 %}
         {% if status[2] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='face', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='face', num=number, name=name, user=user, part='Frame')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Frame
@@ -59,7 +59,7 @@
       {% if status[3] >= 0 %}
         {% if status[3] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='lend', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='lend', num=number, name=name, user=user, part='Left Panel')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Left Panel
@@ -79,7 +79,7 @@
       {% if status[4] >= 0 %}
         {% if status[4] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='rend', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='rend', num=number, name=name, user=user, part='Right Panel')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Right Panel
@@ -99,7 +99,7 @@
       {% if status[1] >= 0 %}
         {% if status[1] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='hardware', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='hardware', num=number, name=name, user=user, part='Hardware')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Hardware
@@ -119,7 +119,7 @@
       {% if status[6] >= 0 %}
         {% if status[6] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='pair door', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='pair door', num=number, name=name, user=user, part='Pair Doors')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Pair Doors
@@ -139,7 +139,7 @@
       {% if status[7] >= 0 %}
         {% if status[7] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='single door', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='single door', num=number, name=name, user=user, part='Single Doors')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Single Door
@@ -159,7 +159,7 @@
       {% if status[8] >= 0 %}
         {% if status[8] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='drw front', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='drw front', num=number, name=name, user=user, part='Drw Front')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Drw Front
@@ -179,7 +179,7 @@
       {% if status[10] >= 0 %}
         {% if status[10] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='garbage', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='garbage', num=number, name=name, user=user, part='Garbage Can')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Garbage Can
@@ -199,7 +199,7 @@
       {% if status[9] >= 0 %}
         {% if status[9] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='false front', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='false front', num=number, name=name, user=user, part='False Front')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             False Front
@@ -219,7 +219,7 @@
       {% if status[5] >= 0 %}
         {% if status[5] == 0 %}
         <div class="form-check">
-          <form method="POST" action="{{ url_for ('cab', toggle='light', num=number, name=name)}}">
+          <form method="POST" action="{{ url_for ('cab', toggle='light', num=number, name=name, user=user, part='Light Panel')}}">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" onclick="this.form.submit()">
             <label class="form-check-label" for="flexCheckDefault" >
             Light Panel
@@ -237,7 +237,7 @@
       {%endif%}
 
       <div class="form-check">
-        <form method="POST" action="{{ url_for ('job', name=name)}}">
+        <form method="POST" action="{{ url_for ('job', name=name, user=user)}}">
           <input type="submit" value="Index" class="btn btn-primary" id="index-button">
         </form>
       </div>

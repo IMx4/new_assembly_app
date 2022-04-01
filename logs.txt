@@ -1,0 +1,8 @@
+FLECK,7,Right Panel,Ramon,Friday,Apr,01,09:41 AM
+FLECK,10,Pair Doors,Travis,Friday,Apr,01,09:41 AM
+FLECK,11,Hardware,Ramon,Friday,Apr,01,11:04 AM
+FLECK,14,Right Panel,Travis,Friday,Apr,01,11:06 AM
+FLECK,14,Hardware,Travis,Friday,Apr,01,11:06 AM
+FLECK,10,Hardware,Ramon,Friday,Apr,01,11:06 AM
+FLECK,8,Left Panel,Travis,Friday,Apr,01,11:13 AM
+FLECK,9,Pair Doors,Ramon,Friday,Apr,01,11:13 AM

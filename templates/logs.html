@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>shop_builder_assembly</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}"> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+</head>
+
+<body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" style="justify-content: center; text-align: center;">Logs</h1>
+      <a class="btn btn-primary" id="'home-button" href="{{url_for('index')}}" role="button">Home</a>
+    </div>
+  </div>
+ 
+  <div class="w-50 p-3 mx-auto">
+    <table class="table"> 
+      <thead class="thead-light">
+        <th class="text-center" scope="col">Date</th>
+        <th class="text-center" scope="col">Time</th>
+        <th class="text-center" scope="col">Job</th>
+        <th class="text-center" scope="col">Part</th>
+        <th class="text-center" scope="col">User</th>
+      </tr>
+      {% for log in logs%}
+      <tr>
+        <td class="text-center" >{{log[4] + ', ' + log[5] + ' ' + log[6]}}</td>
+        <td class="text-center" >{{log[7]}}</td>
+        <td class="text-center" >{{log[0]}}</td>
+        <td class="text-center" >{{log[2]}}</td> 
+        <td class="text-center" >{{log[3]}}</td>
+      </tr>
+      {% endfor %}
+    </table> 
+  </div>
+ 
+</body>
+</html>

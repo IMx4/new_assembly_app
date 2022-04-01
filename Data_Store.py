@@ -1,6 +1,7 @@
 from FileData import FileData
 from assembly import Assembly
 import os
+import datetime
 
 
 class Data():
@@ -58,3 +59,36 @@ class Data():
                 w.write(data[1:-1])
                 w.write('\n')
             w.close()
+
+    def get_users(self):
+
+        user_list = []
+
+        with open(f'{os.getcwd()}/users.txt', 'r') as users:
+            for user in users:
+                user_list.append(user.strip())
+
+        return user_list
+
+    def write_log(self, name, num, toggle, user):
+
+        dt = datetime.datetime.now()
+        month = dt.strftime('%b')
+        day = dt.strftime('%A')
+        day_number = dt.strftime('%d')
+        time = dt.strftime('%I:%M %p')
+
+        with open(f'{os.getcwd()}/logs.txt', 'a') as log:
+            log.write(
+                f'{name},{num},{toggle},{user},{day},{month},{day_number},{time}\n')
+
+    def get_logs(selfer):
+
+        log_list = []
+
+        with open(f'{os.getcwd()}/logs.txt', 'r') as log:
+
+            for entry in log:
+                log_list.append(entry.split(','))
+
+        return log_list

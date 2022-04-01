@@ -8,9 +8,11 @@ app = Flask(__name__)
 
 data = ds.Data()
 assemblies_dict = {}
+users = data.get_users()
 
 
 ### Routes ###
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,22 +33,30 @@ def job(name):
 
 
 @app.route('/unit/<string:name>/<string:number>', methods=['GET', 'POST'])
-def assembly(name, number):
+def user(name, number):
+    # global assemblies_dict
+    # status = assemblies_dict[number].get_assembly_status()
+    return render_template('users.html', users=users, number=number, name=name)
+
+
+@app.route('/unit/<string:name>/<string:number>/<string:user>', methods=['GET', 'POST'])
+def assembly(name, number, user):
     global assemblies_dict
     status = assemblies_dict[number].get_assembly_status()
-    return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/{number}.pdf', status=status, number=number, name=name)
+    return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/{number}.pdf', status=status, number=number, name=name, user=user)
 
 
-@app.route('/cab/<string:toggle>/<string:num>/<string:name>', methods=['POST'])
-def cab(toggle, num, name):
+@app.route('/cab/<string:toggle>/<string:num>/<string:name>/<string:user>/<string:part>', methods=['POST'])
+def cab(toggle, num, name, user, part):
 
     global assemblies_dict
     cabinet = assemblies_dict.get(num)
     cabinet.set_complete(toggle)
+    data.write_log(name, num, part, user)
     print(f'Toggle: {toggle} - Number: {num}')
     data.write_status(assemblies_dict, name)
 
-    return redirect(f'/unit/{name}/{num}')
+    return redirect(f'/unit/{name}/{num}/{user}')
 
 
 @app.route('/load', methods=['GET'])
@@ -55,6 +65,12 @@ def load():
     return redirect(url_for('index'))
 
 
+@app.route('/logs', methods=['GET'])
+def logs():
+    logs = data.get_logs()
+    return render_template('logs.html', logs=logs)
+
+
 if __name__ == '__main__':
 
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5005, debug=True)

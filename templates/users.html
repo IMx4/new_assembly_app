@@ -10,28 +10,22 @@
 <body>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4" style="justify-content: center; text-align: center;">{{name}}</h1>
+      <h1 class="display-4" style="justify-content: center; text-align: center;">Select User</h1>
       <a class="btn btn-primary" id="'home-button" href="{{url_for('index')}}" role="button">Home</a>
     </div>
   </div>
  
-  <div class="w-75 p-3 mx-auto">
+  <div class="w-25 p-3 mx-auto">
     <table class="table"> 
       <thead class="thead-light">
-        <th class="text-center" scope="col">number</th>
-        <th class="text-center" scope="col">Progress</th>
+        <th class="text-center" scope="col">User</th>
         <th class="text-center" scop="col">Select</th>
       </tr>
-      {% for cab in cabs%}
+      {% for user in users%}
       <tr>
-        <td class="text-center" id="number">{{cab._number}}</td>
-        <td>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width:{{cab.calc_percent_complete()}}%;" aria-valuenow={{cab.calc_percent_complete()}} aria-valuemin="0" aria-valuemax="100">{{cab.calc_percent_complete()}}%</div>
-          </div>
-        </td>
+        <td class="text-center" id="number">{{user}}</td>
         <td class="text-center">
-          <form method="POST" action="{{ url_for ('user', number=cab._number, name=cab._job_name)}}">
+          <form method="POST" action="{{ url_for ('assembly', number=number, name=name, user=user)}}">
             <input type="submit" value="Select" class="btn btn-secondary">
         </form>
         </td>
