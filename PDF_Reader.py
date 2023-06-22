@@ -1,5 +1,6 @@
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter
+import fitz
 import tkinter as tk
 from tkinter.ttk import *
 from tkinter import simpledialog, TOP, END
@@ -33,7 +34,7 @@ class pdf_reader():
             ('PDF Files', '*.pdf')])
 
         file_selected = file.name
-        
+
         path = os.path.dirname(file.name)
 
         if file is not None:
@@ -163,6 +164,13 @@ class pdf_reader():
                 # write PDF page file
                 with open(f'{output_filename}', 'wb') as out:
                     pdf_writer.write(out)
+
+                # add jpeg image to file
+                pdf_path = output_filename
+                doc = fitz.open(pdf_path)  # open document
+                for page in doc:
+                    pix = page.get_pixmap()  # render page to an image
+                    pix.save(f'{file_path}/{number}.png')
 
                 print('Created: {}'.format(output_filename))
                 self.t.insert(END, 'Created: {}\n'.format(output_filename))

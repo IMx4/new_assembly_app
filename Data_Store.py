@@ -11,6 +11,7 @@ class Data():
         jobs = {}
         path = f'{os.getcwd()}/static/Build_Sheets/'
         files = [f for f in os.listdir(path)]
+        print(files)
         for job in files:
             percent = self.get_job_percent(job)
             jobs[job] = percent
@@ -21,10 +22,11 @@ class Data():
         assemblies = self.load_job(job)
         for num, assembly in assemblies.items():
             status = assembly.calc_percent_complete()
-            if status == 100:
-                total_complete += 1
+            total_complete += status  # added 5/24/23 to re-calculate percent for index
+            # if status == 100:
+            # total_complete += 1
 
-        return round((total_complete / len(assemblies)) * 100, 2)
+        return round(((total_complete/10) / len(assemblies))*10, 2)
 
     def load_job(self, job):
 
@@ -49,9 +51,9 @@ class Data():
             assemblies[num] = assembly
         return assemblies
 
-    def write_status(self, assemblies, job_name):
+    def write_status(self, assemblies, job_name, lock):
         ######## write status file #########
-
+        lock.acquire()
         with open(f'{os.getcwd()}/static/Build_Sheets/{job_name}/{job_name}-status.txt', 'w') as w:
             w.write(job_name + '\n')
             for assembly in assemblies:
@@ -59,6 +61,7 @@ class Data():
                 w.write(data[1:-1])
                 w.write('\n')
             w.close()
+        lock.release()
 
     def get_users(self):
 
@@ -82,7 +85,7 @@ class Data():
             log.write(
                 f'{name},{num},{toggle},{user},{day},{month},{day_number},{time}\n')
 
-    def get_logs(selfer):
+    def get_logs(self):
 
         log_list = []
 

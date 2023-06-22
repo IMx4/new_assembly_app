@@ -2,6 +2,8 @@
 from flask import Flask, render_template, redirect, url_for
 import Data_Store as ds
 import PDF_Reader as reader
+from flask import request
+from threading import Thread, Lock
 
 
 app = Flask(__name__)
@@ -41,8 +43,15 @@ def user(name, number):
 
 @app.route('/unit/<string:name>/<string:number>/<string:user>', methods=['GET', 'POST'])
 def assembly(name, number, user):
+
     global assemblies_dict
     status = assemblies_dict[number].get_assembly_status()
+
+    os_type = request.headers.get('User-Agent')
+    if 'Android' in os_type:
+        print('Android')
+        return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/{number}.png', status=status, number=number, name=name, user=user)
+
     return render_template('cab_sheet.html', sheet=f'Build_Sheets/{name}/{number}.pdf', status=status, number=number, name=name, user=user)
 
 
@@ -54,7 +63,13 @@ def cab(toggle, num, name, user, part):
     cabinet.set_complete(toggle)
     data.write_log(name, num, part, user)
     print(f'Toggle: {toggle} - Number: {num}')
-    data.write_status(assemblies_dict, name)
+
+    lock = Lock()
+    t = Thread(target=data.write_status, args=(assemblies_dict, name, lock))
+    t.start()
+    t.join()
+
+    # data.write_status(assemblies_dict, name)
 
     return redirect(f'/unit/{name}/{num}/{user}')
 
@@ -73,4 +88,4 @@ def logs():
 
 if __name__ == '__main__':
 
-    app.run(host="0.0.0.0", port=5005, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
