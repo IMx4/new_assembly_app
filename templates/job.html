@@ -9,12 +9,19 @@
 </head>
 
 <body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('logs', name = name)}}">Logs</a>
+    </li>
+  </ul>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4" style="justify-content: center; text-align: center;">{{name}}</h1>
-      <a class="btn btn-primary" id="'home-button" href="{{url_for('index')}}" role="button">Home</a>
+      <a class="btn btn-primary" id="'home-button" href="{{url_for('index')}}" role="button">Home</a>   
     </div>
+    
   </div>
+  
  
   <div class="w-75 p-3 mx-auto">
     <table class="table"> 

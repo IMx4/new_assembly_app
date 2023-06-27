@@ -81,15 +81,15 @@ class Data():
         day_number = dt.strftime('%d')
         time = dt.strftime('%I:%M %p')
 
-        with open(f'{os.getcwd()}/logs.txt', 'a') as log:
+        with open(f'{os.getcwd()}/static/Build_Sheets/{name}/logs.txt', 'a') as log:
             log.write(
                 f'{name},{num},{toggle},{user},{day},{month},{day_number},{time}\n')
 
-    def get_logs(self):
+    def get_logs(self, name):
 
         log_list = []
 
-        with open(f'{os.getcwd()}/logs.txt', 'r') as log:
+        with open(f'{os.getcwd()}/static/Build_Sheets/{name}/logs.txt', 'r') as log:
 
             for entry in log:
                 log_list.append(entry.split(','))

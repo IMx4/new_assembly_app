@@ -468,3 +468,16 @@ COLONIAL BOYS BATH,71,Case,Josh,Thursday,Jun,01,04:37 PM
 COLONIAL BOYS BATH,71,Case,Josh,Thursday,Jun,01,04:38 PM
 COLONIAL BOYS BATH,71,Case,Josh,Thursday,Jun,01,04:39 PM
 COLONIAL BOYS BATH,71,Case,Josh,Thursday,Jun,01,04:40 PM
+COLONIAL KITCHEN ELEV 1,1,Case,Josh,Thursday,Jun,22,08:48 AM
+COLONIAL KITCHEN ELEV 1,1,Frame,Josh,Thursday,Jun,22,08:48 AM
+COLONIAL KITCHEN ELEV 1,1,Hardware,Josh,Thursday,Jun,22,08:48 AM
+COLONIAL KITCHEN ELEV 1,1,Single Doors,Josh,Thursday,Jun,22,08:48 AM
+COLONIAL KITCHEN ELEV 1,1,Drw Front,Josh,Thursday,Jun,22,08:48 AM
+COLONIAL KITCHEN ELEV 1,2,Frame,Corey,Thursday,Jun,22,08:49 AM
+McCREADY,1,Left Panel,Ramon,Thursday,Jun,22,08:49 AM
+McCREADY,1,Drw Front,Ramon,Thursday,Jun,22,08:49 AM
+COLONIAL KITCHEN ELEV 1,2,Hardware,Corey,Thursday,Jun,22,08:49 AM
+McCREADY,1,Case,Ramon,Thursday,Jun,22,08:49 AM
+COLONIAL KITCHEN ELEV 1,2,Drw Front,Corey,Thursday,Jun,22,08:49 AM
+McCREADY,1,Hardware,Ramon,Thursday,Jun,22,08:49 AM
+COLONIAL KITCHEN ELEV 1,2,Case,Corey,Thursday,Jun,22,08:49 AM

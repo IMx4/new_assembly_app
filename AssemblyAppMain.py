@@ -9,7 +9,7 @@ from threading import Thread, Lock
 app = Flask(__name__)
 
 data = ds.Data()
-assemblies_dict = {}
+# assemblies_dict = {}
 users = data.get_users()
 
 
@@ -19,15 +19,21 @@ users = data.get_users()
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
+    data = ds.Data()
+
     jobs = data.get_jobs()
-    global assemblies_dict
-    assemblies_dict = {}
+    # global assemblies_dict
+    # assemblies_dict = {}
     return render_template('index.html', jobs=jobs)
 
 
 @app.route('/jobs/<string:name>', methods=['GET', 'POST'])
 def job(name):
-    global assemblies_dict
+
+    data = ds.Data()
+    assemblies_dict = {}
+
+    # global assemblies_dict
     if len(assemblies_dict) == 0:
         assemblies_dict = data.load_job(name)
     assemblies = [v for v in assemblies_dict.values()]
@@ -44,7 +50,10 @@ def user(name, number):
 @app.route('/unit/<string:name>/<string:number>/<string:user>', methods=['GET', 'POST'])
 def assembly(name, number, user):
 
-    global assemblies_dict
+    data = ds.Data()
+    assemblies_dict = data.load_job(name)
+
+    # global assemblies_dict
     status = assemblies_dict[number].get_assembly_status()
 
     os_type = request.headers.get('User-Agent')
@@ -58,7 +67,7 @@ def assembly(name, number, user):
 @app.route('/cab/<string:toggle>/<string:num>/<string:name>/<string:user>/<string:part>', methods=['POST'])
 def cab(toggle, num, name, user, part):
 
-    global assemblies_dict
+    assemblies_dict = data.load_job(name)
     cabinet = assemblies_dict.get(num)
     cabinet.set_complete(toggle)
     data.write_log(name, num, part, user)
@@ -82,7 +91,8 @@ def load():
 
 @app.route('/logs', methods=['GET'])
 def logs():
-    logs = data.get_logs()
+    name = request.args.get('name')
+    logs = data.get_logs(name)
     return render_template('logs.html', logs=logs)
 
 
