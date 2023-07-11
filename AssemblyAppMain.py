@@ -1,7 +1,6 @@
 # Flask app to display pdf assembly sheets
 from flask import Flask, render_template, redirect, url_for, session
 import Data_Store as ds
-import PDF_Reader as reader
 import PDF_Reader_2 as reader2
 from flask import request
 from threading import Thread, Lock
@@ -78,12 +77,6 @@ def cab(toggle, num, name, user, part):
     t.join()
 
     return redirect(f'/unit/{name}/{num}/{user}')
-
-
-@app.route('/load', methods=['GET'])
-def load():
-    read_pdf = reader.pdf_reader()
-    return redirect(url_for('index'))
 
 
 @app.route('/load2')
