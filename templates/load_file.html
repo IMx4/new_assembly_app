@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <title>shop_builder_assembly</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}"> 
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+</head>
+
+<body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('index')}}">Home</a>
+    </li>
+  </ul>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4" style="justify-content: center; text-align: center;">File Upload</h1>
+    </div>
+  </div>
+  <div class="d-flex justify-content-around">
+  <form method="post" enctype="multipart/form-data" action="{{ url_for ('load_file', file=file)}}">
+    <input class="pr-5" id="file" name="file" type="file" />
+    <button>Upload</button>
+  </form>
+</div>
+ 
+</body>
+</html>

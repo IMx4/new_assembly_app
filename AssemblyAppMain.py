@@ -2,6 +2,7 @@
 from flask import Flask, render_template, redirect, url_for, session
 import Data_Store as ds
 import PDF_Reader as reader
+import PDF_Reader_2 as reader2
 from flask import request
 from threading import Thread, Lock
 from datetime import timedelta
@@ -82,6 +83,19 @@ def cab(toggle, num, name, user, part):
 @app.route('/load', methods=['GET'])
 def load():
     read_pdf = reader.pdf_reader()
+    return redirect(url_for('index'))
+
+
+@app.route('/load2')
+def load2():
+    return render_template('load_file.html')
+
+
+@app.route('/load_file', methods=['POST'])
+def load_file():
+    f = request.files['file']
+    read_pdf = reader2.pdf_reader(f)
+    # f.save(secure_filename(f.filename))
     return redirect(url_for('index'))
 
 
