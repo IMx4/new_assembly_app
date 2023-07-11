@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta name="GCD" content="YTk3ODQ3ZWZhN2I4NzZmMzBkNTEwYjJl74b18ae0edb5749985cdb7595e81a4cf"/>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="480;{{url_for('index')}}" />
+  <meta http-equiv="refresh" content="15;{{url_for('index')}}" />
   <title>shop_builder_assembly</title>
   <meta name="generator" content="Google Web Designer 14.0.0.0820">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}"> 
@@ -16,7 +16,7 @@
    
    <div class="row">
      
-     <div class="col-3" style="background-color: #404245;">
+     <div class="col-2" style="background-color: #404245;">
       {% if status[0] >= 0 %}
         {% if status[0] == 0 %}
         <div class="form-check">
@@ -244,7 +244,7 @@
       </div>
       </div>
       
-      <div class="col-9"> 
+      <div class="col-10"> 
         <!-- <embed src="{{url_for('static',filename=sheet)}}" type="application/pdf" width="100%" height="825"> -->
         <iframe src="{{url_for('static',filename=sheet)}}" width="100%" height="850"></iframe>
       </div>

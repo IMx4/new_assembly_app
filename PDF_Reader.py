@@ -67,7 +67,7 @@ class pdf_reader():
                 for line in lines:
 
                     # job name
-                    name = re.match(r'Job:([a-zA-Z])+', line)
+                    name = re.match(r'Job:([0-9a-zA-Z ])+', line)
                     if name != None:
                         split = name.group(0).split(':')
                         self.job_name = split[1]
@@ -195,6 +195,6 @@ class pdf_reader():
         self.root.destroy()
 
 
-#p = pdf_reader()
+# p = pdf_reader()
 # p.write_status()
 # p.close_window()

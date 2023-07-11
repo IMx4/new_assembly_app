@@ -9,24 +9,19 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = "theKey"
-app.permanent_session_lifetime = timedelta(seconds=10)
+app.permanent_session_lifetime = timedelta(seconds=14)
 
 data = ds.Data()
-# assemblies_dict = {}
 users = data.get_users()
 
 
 ### Routes ###
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
     data = ds.Data()
-
     jobs = data.get_jobs()
-    # global assemblies_dict
-    # assemblies_dict = {}
+
     return render_template('index.html', jobs=jobs)
 
 
@@ -36,7 +31,6 @@ def job(name):
     data = ds.Data()
     assemblies_dict = {}
 
-    # global assemblies_dict
     if len(assemblies_dict) == 0:
         assemblies_dict = data.load_job(name)
     assemblies = [v for v in assemblies_dict.values()]
@@ -45,8 +39,7 @@ def job(name):
 
 @app.route('/unit/<string:name>/<string:number>', methods=['GET', 'POST'])
 def user(name, number):
-    # global assemblies_dict
-    # status = assemblies_dict[number].get_assembly_status()
+
     return render_template('users.html', users=users, number=number, name=name)
 
 
@@ -56,8 +49,6 @@ def assembly(name, number, user):
     session[f'{user}'] = user
     data = ds.Data()
     assemblies_dict = data.load_job(name)
-
-    # global assemblies_dict
     status = assemblies_dict[number].get_assembly_status()
 
     os_type = request.headers.get('User-Agent')
@@ -84,8 +75,6 @@ def cab(toggle, num, name, user, part):
     t = Thread(target=data.write_status, args=(assemblies_dict, name, lock))
     t.start()
     t.join()
-
-    # data.write_status(assemblies_dict, name)
 
     return redirect(f'/unit/{name}/{num}/{user}')
 
