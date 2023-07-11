@@ -1,12 +1,15 @@
 # Flask app to display pdf assembly sheets
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, session
 import Data_Store as ds
 import PDF_Reader as reader
 from flask import request
 from threading import Thread, Lock
+from datetime import timedelta
 
 
 app = Flask(__name__)
+app.secret_key = "theKey"
+app.permanent_session_lifetime = timedelta(seconds=10)
 
 data = ds.Data()
 # assemblies_dict = {}
@@ -50,6 +53,7 @@ def user(name, number):
 @app.route('/unit/<string:name>/<string:number>/<string:user>', methods=['GET', 'POST'])
 def assembly(name, number, user):
 
+    session[f'{user}'] = user
     data = ds.Data()
     assemblies_dict = data.load_job(name)
 
@@ -66,6 +70,9 @@ def assembly(name, number, user):
 
 @app.route('/cab/<string:toggle>/<string:num>/<string:name>/<string:user>/<string:part>', methods=['POST'])
 def cab(toggle, num, name, user, part):
+
+    if user not in session:
+        return redirect(url_for('index'))
 
     assemblies_dict = data.load_job(name)
     cabinet = assemblies_dict.get(num)
